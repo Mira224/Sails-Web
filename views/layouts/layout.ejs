@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Q-pon</title>
+
+  <!-- Viewport mobile tag for sensible mobile support -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <%/* If you want to discourage search engines from indexing this site, uncomment the following line: */%>
+  <%/* <meta name="robots" content="noindex"> */%>
+
+
+
+
+  <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+  
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img
+          src="data:image/png;base64,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"
+          width="112" height="28">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a href="http://localhost:1337/qpon/home" class="navbar-item">
+          Home
+        </a>
+        <a href="http://localhost:1337/qpon/search?" class=" navbar-item">
+          Search
+        </a>
+        <% if (req.session.userrole == 'admin') { %>
+
+        <a href="http://localhost:1337/qpon/create" class="navbar-item">
+          Create
+        </a>
+        <a href="http://localhost:1337/qpon/admin" class="navbar-item">
+          Admin
+        </a>
+
+        <% } %>
+        <% if (req.session.userrole == 'member') { %>
+
+        <a href="http://localhost:1337/user/redeemed"  class="navbar-item"> My Redeemed Coupons </a>
+
+        <% } %>
+
+
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if (req.session.userrole != 'admin' && req.session.userrole != 'member') { %>
+
+        <div class="buttons">
+          <a class="button is-primary">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href='http://localhost:1337/user/login'>
+            Log in
+          </a>
+        </div>
+
+        <% } %>
+
+        <% if (req.session.userrole == 'member'||req.session.userrole =='admin') { %>
+
+        <div> Hi, <%= req.session.username %>  </div>
+
+        <form action="/user/logout" method="POST" >
+        <div class="buttons">
+
+          <button type="submit" class="button is-light" onclick="logout(this)">
+            Log out
+          </button>
+        </div>
+        </form>
+        
+        
+
+        <% } %>
+
+
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div style="font-size: 30px;">Q-Pon</div>
+      <div style="font-size:16px">Redeem your coins for dinning coupons.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="column">
+
+        <%- body %>
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+  <!--SCRIPTS-->
+  <script src="/dependencies/sails.io.js"></script>
+  <!--SCRIPTS END-->
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</body>
+
+</html>

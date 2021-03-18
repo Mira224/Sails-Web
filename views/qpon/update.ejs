@@ -1,0 +1,172 @@
+<!--create.ejs-->
+<form action="/qpon/update/<%= qpon.id %>" method="post">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" name="title" value="<%= qpon.title%>" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Restaurant</label>
+                    <div class="control">
+                        <input class="input" type="text" name="restaurant" value="<%= qpon.restaurant%>" required>
+                    </div>
+                </div>
+                <div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Region</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="region" onchange="regionSelected(this.value)" name="region"
+                                            value="<%= qpon.region%>" required>
+                                            <option value="">Select region</option>
+                                            <option value="HK Island">HK Island</option>
+                                            <option value="Kowloon">Kowloon</option>
+                                            <option value="New Territories">New Territories</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Mall</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="Mall" name="mall" onchange="mallSelected(this.value)"
+                                            value="<%= qpon.mall%>" disabled required>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Image</label>
+                        <div class="control">
+                            <input class="input" type="url" name="image" value="<%= qpon.image%>" required>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Quota</label>
+                            <div class="control">
+                                <input class="input" type="number" name="quota" value="<%= qpon.quota%>" min=1
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Coins</label>
+                            <div class="control">
+                                <input class="input" type="number" name="coins" min=0 value="<%= qpon.coins%>"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Expiry Date</label>
+                    <div class="control">
+                        <input class="input" type="date" name="expiryDate" value="<%= qpon.expiryDate%>" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Detail</label>
+                    <div class="control">
+                        <textarea id="detail" class="textarea" placeholder="Textarea" id="detaul" name="detail" rows="3"
+                            value="" required><%= qpon.detail%></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-link" type="submit">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var HKIsland = ["IFC MALL", "Pacific Place", "Times Square"];
+        var Kowloon = ["Elements", "Harbour City", "Festival Walk", "APM"];
+        var NewTerritories = ["New Town Plaza", "Tsuen Wan Plaza"];
+
+        function regionSelected(region) {
+
+
+            var mallElement = document.getElementById("Mall");
+            mallElement.options.length = 0;
+
+            if (region == "HK Island") {
+
+                HKIsland.forEach(function (item) {
+                    var option = document.createElement("option");
+                    option.text = item;
+                    option.value = item;
+                    mallElement.add(option);
+                });
+                mallElement.disabled = false;
+
+
+
+            } else if (region == "Kowloon") {
+                Kowloon.forEach(function (item) {
+                    var option = document.createElement("option");
+                    option.text = item;
+                    option.value = item;
+                    mallElement.add(option);
+                });
+
+                mallElement.disabled = false;
+
+
+            } else if (region == "New Territories") {
+                NewTerritories.forEach(function (item) {
+                    var option = document.createElement("option");
+                    option.text = item;
+                    option.value = item;
+                    mallElement.add(option);
+                });
+                mallElement.disabled = false;
+
+            } else {
+                mallElement.disabled = true;
+            }
+        }
+
+        document.querySelector('option[value="<%=qpon.region%>"]').selected = "selected";
+        regionSelected("<%=qpon.region%>");
+        document.querySelector('option[value="<%=qpon.mall%>"]').selected = "selected";
+
+
+    </script>
+
+
+
+</form>
+<form action="/qpon/delete/<%= qpon.id %>" method="post">
+    <div class="container">
+        <button type="submit"
+            class="button is-danger">Delete</button>
+    </div>
+</form>

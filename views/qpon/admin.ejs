@@ -1,0 +1,38 @@
+<!--admin.ejs-->
+
+<div class="container">
+    <div class="column">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+
+
+            <div class="column">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Restaurant</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                <% record.forEach( function(qpon) { %>
+
+                <tr>
+                    <td><%= qpon.id %></td>
+                    <td><%= qpon.restaurant %></td>
+                    <td><%= qpon.title %></td>
+                    <td><a href="http://localhost:1337/qpon/update/<%= qpon.id %>">Update</a></td>
+                    <td><a href="http://localhost:1337/qpon/owners/<%= qpon.id %>">Redeemed Members</a></td>
+                </tr>
+                <% }); %>
+            </div>
+
+
+
+        </table>
+    </div>
+
+</div>
+
+
+
+
+</form>

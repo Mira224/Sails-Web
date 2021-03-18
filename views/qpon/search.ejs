@@ -1,0 +1,199 @@
+<!--search.ejs-->
+
+<div class="container">
+    <div class="columns is-1-mobile">
+
+        <div class="column">
+            
+                <div id="p2"></div>
+            
+        </div>
+        <div class="column is-1-mobile is-one-third">
+
+            <div class="field">
+               
+                    <label class="label">Region</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="searchRegion" id="searchRegion">
+                                <option value="">Select region</option>
+                                <option value="HK Island">HK Island</option>
+                                <option value="Kowloon">Kowloon</option>
+                                <option value="New Territories">New Territories</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="label">Min Coin</label>
+                            <div class="control">
+                                <input class="input" type="number" name="searchMinCoin" id="searchMinCoin">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Max Coin</label>
+                            <div class="control">
+                                <input class="input" type="number" name="searchMaxCoin" id="searchMaxCoin">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Valid On</label>
+                            <div class="control">
+                                <input class="input" type="date" name="searchExpiryDate" name="searchExpiryDate" id="searchExpiryDate">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-info" type="submit" onclick="fetchPage(2,0)">Search</button>
+                            </div>
+                        </div>
+             
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="pagination" role="navigation" aria-label="pagination">
+    <a class="pagination-previous" id="previousButton">Previous</a>
+    <a class="pagination-next" id="nextButton">Next page</a>
+    <ul class="pagination-list">
+        <li>
+            <a class="pagination-link" id="firstLink">1</a>
+        </li>
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+        <li>
+            <a class="pagination-link" id="previousLink">45</a>
+        </li>
+        <li>
+            <a class="pagination-link is-current" id="currentLink">46</a>
+        </li>
+        <li>
+            <a class="pagination-link" id="nextLink">47</a>
+        </li>
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+        <li>
+            <a class="pagination-link" id="lastLink">86</a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    function setPagination(limit, offset, count) {
+
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        var currentLink = document.getElementById("currentLink");
+        var previousLink = document.getElementById("previousLink");
+        var nextLink = document.getElementById("nextLink");
+        var firstLink = document.getElementById("firstLink");
+        var lastLink = document.getElementById("lastLink");
+
+        var numOfRecords = count;
+        //  var limit = Math.max(parseInt("<%= req.query.limit %>"), 2) || 2;
+        //  var offset = Math.max(parseInt("<%= req.query.offset %>"), 0) || 0;
+
+        //var baseUrl = "/qpon/search?searchRegion=<%=req.query.searchRegion%>&searchMinCoin=<%=req.query.searchMinCoin%>&searchMaxCoin=<%=req.query.searchMaxCoin%>&searchExpiryDate=<%=req.query.searchExpiryDate%>limit=" + limit + "&offset="+offset;
+
+        // firstLink.href = baseUrl + 0;
+        // previousButton.href = baseUrl + (offset - limit);
+        // previousLink.href = baseUrl + (offset - limit);
+        // currentLink.href = baseUrl + offset;
+        // nextLink.href = baseUrl + (offset + limit);
+        // nextButton.href = baseUrl + (offset + limit);
+        // lastLink.href = baseUrl + (Math.ceil(numOfRecords / limit) - 1) * limit;
+        firstLink.onclick = function () { fetchPage(limit, 0) };
+        previousButton.onclick = function () { fetchPage(limit, (offset - limit)) };
+        previousLink.onclick = function () { fetchPage(limit, (offset - limit) )};
+        currentLink.onclick = function () { fetchPage(limit, offset) };
+        nextLink.onclick = function () { fetchPage(limit, (offset + limit)) };
+        nextButton.onclick = function () { fetchPage(limit, (offset + limit)) };
+        lastLink.onclick = function () { fetchPage(limit, (Math.ceil(numOfRecords / limit) - 1) * limit) };
+
+        var currentPageNumber = Math.floor(offset / limit) + 1;
+
+        previousLink.innerHTML = currentPageNumber - 1;
+        currentLink.innerHTML = currentPageNumber;
+        nextLink.innerHTML = currentPageNumber + 1;
+        lastLink.innerHTML = Math.ceil(numOfRecords / limit);
+
+        if (offset < limit) {
+            previousButton.setAttribute("disabled", true);
+            previousButton.href = "";
+            previousLink.style.display = "none";
+        } else {
+            previousButton.removeAttribute("disabled", false);
+            previousLink.style.display = "block";
+        }
+
+        if (offset + limit >= numOfRecords) {
+            nextButton.setAttribute("disabled", true);
+            nextButton.href = "";
+            nextLink.style.display = "none";
+        } else {
+            nextButton.removeAttribute("disabled", false);
+            nextLink.style.display = "block";
+        }
+    }
+
+    setPagination();
+
+
+</script>
+<script>
+    async function fetchPage(limit, offset) {
+
+        sRegion=document.getElementById("searchRegion").value;
+        sMinCoins=document.getElementById("searchMinCoin").value;
+        sMaxCoins=document.getElementById("searchMaxCoin").value;
+        sEDate=document.getElementById("searchExpiryDate").value;
+        var response = await fetch('/qpon/search?searchRegion='+sRegion+'&searchMinCoin='+sMinCoins+'&searchMaxCoin='+sMaxCoins+'&searchExpiryDate='+sEDate+'&limit=' + limit + "&offset=" + offset);
+      
+        if (response.ok) {
+            var coupons = await response.json();
+            var dynamicCode = ` <div class="columns is-1-mobile">`;
+
+            coupons.thoseRecords.forEach(function (qpon) {
+                dynamicCode += `  
+                <div class="column">
+           <div class="card">
+               <div class="card-image">
+                 <figure class="image">
+                    <img src="${qpon.image}  ">
+                  </figure>
+                </div>
+             <div class="card-content">
+               <tr>
+                 <a href="http://localhost:1337/qpon/read/${qpon.id} ">
+                      <strong>
+                          <li>${qpon.restaurant}  </li>
+                     </strong>
+                  </a>
+              </tr>
+              <tr>
+                    <li>${qpon.title}</li>
+              </tr>
+              <tr>
+                  <li>Coins: ${qpon.coins}  </li>
+              </tr>
+              </div>
+            </div >
+            </div>`;
+            });
+
+            document.querySelector("#p2").innerHTML = dynamicCode + "</div>";
+
+
+            setPagination(limit, offset,coupons.count);
+
+        } else {
+            alert(response.status + ": " + response.statusText);
+        }
+    };
+
+    fetchPage(2, 0);
+</script>

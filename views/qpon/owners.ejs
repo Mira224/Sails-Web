@@ -1,0 +1,23 @@
+<!--Admin see who redeemed that coupon-->
+<div class="container">
+    <div class="column">
+        <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+            <tr>
+      
+                <th>User Name</th>
+
+            </tr>
+            <% owners.owners.forEach(function(user) { %>
+
+            <tr>
+                <td><%= user.username %></td>
+            </tr>
+
+            <% }); %>
+
+
+
+
+        </table>
+    </div>
+</div>

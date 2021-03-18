@@ -1,0 +1,98 @@
+<!--list.ejs-->
+<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+
+    <div class="container">
+
+        <div class="columns">
+            <div class="column">
+                <div calss="column">
+                    <strong>
+                        <div>HK Island</div>
+                    </strong>
+                    <% HKIslands.forEach( function(qpon) { %>
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image ">
+                                <img src="<%= qpon.image %>">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <a href="http://localhost:1337/qpon/read/<%= qpon.id %>">
+                                <strong>
+                                    <li><%= qpon.restaurant %></li>
+                                </strong>
+                            </a>
+                            <li><%= qpon.title %></li>
+                            <br>
+                            <li>Coins: <%= qpon.coins %></li>
+
+                        </div>
+                    </div>
+                    <br>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="column">
+                <div calss="column">
+                    <strong>
+                        <div>Kowloon</div>
+                    </strong>
+                    <% Kowloons.forEach( function(qpon) { %>
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="<%= qpon.image %>">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <a href="http://localhost:1337/qpon/read/<%= qpon.id %>">
+                                <strong>
+                                    <li><%= qpon.restaurant %></li>
+                                </strong>
+                            </a>
+                            <li><%= qpon.title %></li>
+                            <br>
+                            <li>Coins: <%= qpon.coins %></li>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="column">
+                <div calss="column">
+                    <strong>
+                        <div>New Territories</div>
+                    </strong>
+                    <% NewTs.forEach( function(qpon) { %>
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="<%= qpon.image %>">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <a href="http://localhost:1337/qpon/read/<%= qpon.id %>">
+                                <strong>
+                                    <li><%= qpon.restaurant %></li>
+                                </strong>
+                            </a>
+                            <li><%= qpon.title %></li>
+                            <br>
+                            <li>Coins: <%= qpon.coins %></li>
+                        </div>
+
+                    </div>
+                    <br>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+</table>

@@ -1,0 +1,74 @@
+<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+
+
+    <div class="container">
+        <div class="columns">
+            <div class="column" style="display: inline-block;">
+                <div class="image ">
+                    <img src="<%= qpon.image %>">
+                </div>
+            </div>
+
+            <div class="column" style="display: inline-block">
+
+                <ul style="list-style-type : disc">
+
+                    <li><strong>Restaurant:
+                            <%= qpon.restaurant %>
+                        </strong>
+                    </li>
+                    <li><strong><%= qpon.title %></li></strong>
+
+                    <li><strong>Coins: </strong> <%= qpon.coins %></li>
+
+                    <li><strong>Address: </strong> <%= qpon.mall %>, <%=qpon.region %></li>
+
+                    <li><strong>Expiry date: </strong> <%= qpon.expiryDate %></li>
+
+                    <li><strong>Quota: </strong> <%= qpon.quota %></li>
+
+                    <li><%= qpon.detail %></li>
+
+                </ul>
+
+                <br><br>
+                <% if (button) { %>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" onclick="redeemQpon('<%= qpon.id %>')">Redeem</button>
+                    </div>
+                </div>
+
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</table>
+
+
+
+
+<script>
+    async function redeemQpon(fk) {
+        var r = confirm("Confirm Redeem?");
+
+        if (r) {
+            var response = await fetch("/user/possessions/redeem/" + fk, {
+                method: "POST"
+            });
+
+            if (response.ok) {
+                var html = await response.text();
+                alert(html);
+                location.reload(true);
+            } else {
+                var msg = await response.json();
+                alert(response.status + ": " + msg);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+    };
+</script>

@@ -1,0 +1,61 @@
+<!--my redeemed coupons-->
+<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+
+
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <strong>Redeemed Coupons</strong>
+            </div>
+            <div class="column">
+                <strong>Current Balence: <%=req.session.coins %> </strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="columns is-multiline is-mobile">
+
+            <% user.possessions.forEach( function(qpon){ %>
+            <div class="column is-one-third">
+              
+
+
+                    <div class="container">
+
+                        <div class="column is-1-mobile is-multiline">
+
+                            <div class="card">
+                                <div class="card-image">
+                                    <figure class="image is-4by3">
+                                        <img src="<%= qpon.image %>">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <a href="http://localhost:1337/qpon/read/<%= qpon.id %>">
+                                        <strong>
+                                            <li><%= qpon.restaurant %></li>
+                                        </strong>
+                                    </a>
+                                    <li><%= qpon.title %></li>
+                                    <br>
+                                    <li>Coins: <%= qpon.coins %></li>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+         
+
+            </div>
+            <% }); %>
+
+
+
+
+
+        </div>
+    </div>
+
+    </div>
+</table>
